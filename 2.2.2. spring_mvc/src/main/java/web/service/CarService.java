@@ -1,4 +1,4 @@
-package web.dao;
+package web.service;
 
 
 import org.springframework.stereotype.Component;
@@ -6,6 +6,7 @@ import web.model.Car;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -14,7 +15,6 @@ public class CarService {
 
     public CarService() {
         cars = new ArrayList<>();
-
         cars.add(new Car("x4", "bmw", 111));
         cars.add(new Car("x5", "bmw", 222));
         cars.add(new Car("x6", "bmw", 333));
@@ -26,7 +26,11 @@ public class CarService {
         return cars.size();
     }
 
-    public List<Car> CarList() {
-        return cars;
+    public List<Car> CarList(Integer count) {
+        if (count != null) {
+            return cars.stream().limit(count).collect(Collectors.toList());
+        } else {
+            return cars;
+        }
     }
 }
