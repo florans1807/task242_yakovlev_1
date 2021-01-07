@@ -3,7 +3,6 @@ package web.service;
 
 import org.springframework.stereotype.Service;
 import web.model.User;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,7 +13,8 @@ public class UserServiceSF {
     private EntityManager em;
 
     public List<User> getAll() {
-        Query query = em.createQuery("from User");
-        return query.getResultList();
+        TypedQuery<User> typedQuery = em.createQuery("from User", User.class);
+        return typedQuery.getResultList();
     }
+
 }

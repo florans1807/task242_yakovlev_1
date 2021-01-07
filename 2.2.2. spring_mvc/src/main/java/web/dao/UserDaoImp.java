@@ -1,3 +1,4 @@
+/*
 package web.dao;
 
 
@@ -14,7 +15,8 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-    /*private static final String URL = "jdbc:h2:C:\\db.mv.db/yakovlev;MV_STORE=false";
+    */
+/*private static final String URL = "jdbc:h2:C:\\db.mv.db/yakovlev;MV_STORE=false";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Loskov10";
 
@@ -36,7 +38,8 @@ public class UserDaoImp implements UserDao {
             e.printStackTrace();
         }
         return users;
-    }*/
+    }*//*
+
 
 
 
@@ -55,3 +58,4 @@ public class UserDaoImp implements UserDao {
     }
 
 }
+*/
