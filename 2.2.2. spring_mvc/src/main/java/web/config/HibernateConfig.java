@@ -14,7 +14,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.spi.PersistenceProvider;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -22,20 +21,26 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("web.service")
 @EnableTransactionManagement
-//@PropertySource(value = "classpath:db.properties")
+@PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {
 
-    //@Autowired
-    //private Environment environment;
+    private Environment environment;
+
+    @Autowired
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
     //1
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");//environment.getRequiredProperty("db.driver"));
-        dataSource.setUrl("jdbc:mysql://localhost:3306/yakovlev?serverTimezone=Europe/Minsk&useSSL=false");//environment.getRequiredProperty("db.url"));
-        dataSource.setUsername("root");//environment.getRequiredProperty("db.username"));
-        dataSource.setPassword("root");//environment.getRequiredProperty("db.password"));
+
+        dataSource.setDriverClassName(environment.getRequiredProperty("db.driver"));
+        dataSource.setUrl(environment.getRequiredProperty("db.url"));
+        dataSource.setUsername(environment.getRequiredProperty("db.username"));
+        dataSource.setPassword(environment.getRequiredProperty("db.password"));
+
         return dataSource;
     }
 
@@ -54,8 +59,10 @@ public class HibernateConfig {
     //3
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        properties.put("hibernate.show_sql", "true");
+
+        properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
+        properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
+
         return properties;
     }
 
