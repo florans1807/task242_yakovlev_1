@@ -1,41 +1,46 @@
 package web.service;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import web.dao.UserDao;
 import web.model.User;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
-public class UserServiceSF {
+public class UserServiceSF implements UserServiceIn {
 
-    @PersistenceContext
-    private EntityManager em;
+    private UserDao userDao;
 
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    @Override
     public List<User> getAll() {
-        TypedQuery<User> typedQuery = em.createQuery("from User", User.class);
-        return typedQuery.getResultList();
+        return userDao.getAll();
     }
 
+    @Override
     public User get(int id) {
-        return em.find(User.class, id);
+        return userDao.get(id);
     }
 
+    @Override
     public void add(User user) {
-        em.persist(user);
+        userDao.add(user);
     }
 
+    @Override
     public void update(int id, User updatedUser) {
-        User userToBeUpdated = get(id);
-        userToBeUpdated.setName(updatedUser.getName());
-        userToBeUpdated.setSurname(updatedUser.getSurname());
-        em.persist(userToBeUpdated);
+        userDao.update(id, updatedUser);
     }
 
+    @Override
     public void delete(int id) {
-        em.remove(get(id));
+        userDao.delete(id);
     }
-
 }
