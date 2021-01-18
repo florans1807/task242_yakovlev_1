@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
+import web.service.UserServiceIn;
 import web.service.UserServiceSF;
 
 
@@ -12,7 +13,7 @@ import web.service.UserServiceSF;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserServiceSF userService;
+    private final UserServiceIn userService;
 
     @Autowired
     public UserController(UserServiceSF userService) {
@@ -24,7 +25,6 @@ public class UserController {
         model.addAttribute("users", userService.getAll());
         return "obj";
     }
-
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {

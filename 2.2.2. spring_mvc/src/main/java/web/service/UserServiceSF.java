@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceSF implements UserServiceIn {
 
     private UserDao userDao;
@@ -43,4 +44,5 @@ public class UserServiceSF implements UserServiceIn {
     public void delete(int id) {
         userDao.delete(id);
     }
+
 }
