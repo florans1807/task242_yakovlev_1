@@ -6,6 +6,30 @@
 </head>
 <body>
 
+<div th:each="user : ${users}">
+    <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()} + ${user.getSurname()}">user</a>
+</div>
+
+<br>
+<hr/>
+
+<a href="/users/new">Create new user</a>
+
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
 <h1>th:each</h1>
 
 <table border="1">
