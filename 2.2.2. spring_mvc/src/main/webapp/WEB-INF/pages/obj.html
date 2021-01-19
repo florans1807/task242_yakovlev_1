@@ -19,9 +19,6 @@
         <td th:utext="${user.id}">Id</td>
         <td th:utext="${user.name}">Name</td>
         <td th:utext="${user.surname}">Surname</td>
-        <td><form th:method="GET" th:action="@{/users/{id}(id=${user.getId()})}">
-            <input type="submit" value="Get"/>
-        </form></td>
         <td><a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a></td>
         <td><form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
             <input type="submit" value="Delete"/>
