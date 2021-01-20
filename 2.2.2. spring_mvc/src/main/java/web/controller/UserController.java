@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserServiceIn;
-import web.service.UserServiceSF;
+
 
 
 @Controller
@@ -16,7 +16,7 @@ public class UserController {
     private final UserServiceIn userService;
 
     @Autowired
-    public UserController(UserServiceSF userService) {
+    public UserController(UserServiceIn userService) {
         this.userService = userService;
     }
 
@@ -50,8 +50,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user) {
-        userService.update(user);
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+        userService.update(id, user);
         return "redirect:/users";
     }
 

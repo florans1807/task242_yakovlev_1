@@ -36,8 +36,8 @@ public class UserServiceSF implements UserServiceIn {
     }
 
     @Override
-    public void update(User updatedUser) {
-        userDao.update(updatedUser);
+    public void update(int id, User updatedUser) {
+        userDao.update(id, updatedUser);
     }
 
     @Override

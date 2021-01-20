@@ -19,7 +19,7 @@ import java.util.Properties;
 
 
 @Configuration
-@ComponentScan("web.service")
+@ComponentScan(basePackages = {"web.dao", "web.service"})
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {
@@ -47,13 +47,13 @@ public class HibernateConfig {
     //2
     @Bean
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
-        LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
-        lcemfb.setDataSource(dataSource());
-        lcemfb.setPackagesToScan("web");
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setPackagesToScan("web.model");
         JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        lcemfb.setJpaVendorAdapter(jpaVendorAdapter);
-        lcemfb.setJpaProperties(hibernateProperties());
-        return lcemfb;
+        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
+        entityManagerFactoryBean.setJpaProperties(hibernateProperties());
+        return entityManagerFactoryBean;
     }
 
     //3
